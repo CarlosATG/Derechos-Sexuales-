@@ -452,7 +452,7 @@ def TercerNivel(colour):
             if event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN:
                     level += 1
                     if level >= 4:
-                        CuartoNivel(color)
+                        CuartoNivel(colour)
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_UP:
                     jumping =True
@@ -635,7 +635,7 @@ def CuartoNivel(colour):
             if event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN:
                     level += 1
                     if level >= 5:
-                        QuintoNivel(color)
+                        QuintoNivel(colour)
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_UP:
                     jumping =True
@@ -846,7 +846,7 @@ def QuintoNivel(colour):
             if event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN:
                     level += 1
                     if level >= 3:
-                        SextoNivel(color)
+                        SextoNivel(colour)
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_UP:
                     jumping =True
