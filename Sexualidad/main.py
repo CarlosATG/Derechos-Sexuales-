@@ -229,7 +229,7 @@ def FirstLevel():
                 if event.key == pygame.K_RIGHT:
                     Left = False
                 if event.key == pygame.K_RETURN and Left == False:
-                        SegundoNivel("Blue")
+                        Tutorial("Blue")
                 elif event.key == pygame.K_LEFT:
                     Left = True
                 if event.key == pygame.K_RETURN and Left == True:
