@@ -1,4 +1,4 @@
-from pygame import *
+#from pygame import *
 import pygame, sys
 import spritesheet
 from button import Button
@@ -7,6 +7,10 @@ pygame.init()
 pygame.mixer.music.load("8bit.mp3")
 pygame.mixer.music.play(-1)  # The -1 means the music will loop indefinitely
 pygame.mixer.music.set_volume(.05)
+JumpS= pygame.mixer.Sound("assets/jump.mp3")
+JumpS.set_volume(0.05)
+JumpC = pygame.mixer.Sound('assets/Correct!.mp3')
+JumpC.set_volume(0.5)
 SCREEN = pygame.display.set_mode((1280, 720))
 pygame.display.set_caption("Menu")
 #Fondos
@@ -94,6 +98,115 @@ Btn_Message=boton(0, 520, BG_Mensajes, 1)
 def get_font(size): # Returns Press-Start-2P in the desired size
     return pygame.font.Font("assets/04B_30__.TTF", size)
 
+
+def Tutorial(color):
+    TutorialBg = pygame.image.load('assets/TutBG.png')
+    if color == "Blue":
+        Personaje = Azul_idle
+        moveR = Azul_walking_right
+        moveL = Azul_walking_Left
+        Jump = Azul_jumping
+    else:
+        Personaje = Rosa_idle
+        moveR = Rosa_walking_right
+        moveL = Rosa_walking_Left
+        Jump = Rosa_jumping
+    counter = 0
+    message=''
+    jumping = False
+    frame_rate= 3
+    clock = pygame.time.Clock()
+    font = pygame.font.Font("assets/Pixel_like.ttf", 24)
+    screen_width, screen_height = SCREEN.get_size()
+    last_update = pygame.time.get_ticks()
+    frame =0
+    running = True
+    Preguntas= ["Bienvenido! para moverte usa las felchas en tu teclado.",
+                "Salta con Up si entendiste ",
+                "A) Esta claro",
+                "B) No entendi",
+                "Ya estas listo, presiona ENTER para continuar...",
+                ]
+    SCREEN.fill((255, 255, 255))  # Clear screen
+    x= 300
+    y= 250
+    Y_gravity= 1
+    Jump_height =14
+    Y_velocity =Jump_height
+    level = 0
+    Correcto =0
+    jumpvfx = True
+    while True:
+        SCREEN.fill((255, 255, 255))  # Clear screen
+        timer.tick(60)
+        SCREEN.blit(TutorialBg, (0,0))
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+                return  # Exit the
+            if event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN:
+                    level += 1
+                    if level >= 1:
+                        SegundoNivel(color)
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_UP:
+                    jumping =True
+        keys = pygame.key.get_pressed()
+        if keys[pygame.K_RIGHT]:
+            if x < 1100:
+                x+= 10
+                SCREEN.blit(moveR[frame], (x, y))
+            else :SCREEN.blit(Personaje[frame], (x,y))
+        elif keys[pygame.K_LEFT]:
+            if x > 0:
+                x-=10
+                SCREEN.blit(moveL[frame], (x, y))
+            else : SCREEN.blit(Personaje[frame], (x,y))
+        else: SCREEN.blit(Personaje[frame], (x,y))
+        current_time = pygame.time.get_ticks()
+        if current_time - last_update >= animation_cooldown:
+            frame += 1
+            last_update = current_time
+            if frame >= len(Rosa_idle): frame = 0
+        # Display the message
+        if level == 0:
+            for i in range (4):
+                speed = 10
+                if counter < speed *len(Preguntas[i]):
+                    counter +=1
+                elif counter >=speed*len(Preguntas[i]):
+                    done = True
+                snip= font.render(Preguntas[i][0:counter//speed], True, 'Black')
+                SCREEN.blit(snip,(38,560+(25*i)))
+            if Correcto == 1:
+                SCREEN.blit(BG_Mensajes, (0, 520))
+                speed = 10
+                if counter < speed *len(Preguntas[4]):
+                    counter +=1
+                elif counter >=speed*len(Preguntas[4]):
+                    done = True
+                snip= font.render(Preguntas[4][0:counter//speed], True, 'Black')
+                SCREEN.blit(snip,(38,560))
+        if jumping:
+            y -= Y_velocity
+            Y_velocity -= Y_gravity
+            if x >= 100 and x<= 270 and level == 0:
+                Correcto = 1
+                if jumpvfx:
+                    JumpC.play()
+                    jumpvfx = False
+            if x >= 850 and x <= 1050 and level == 0:
+                Correcto = 2
+            if Y_velocity <- Jump_height:
+                jumping= False
+                Y_velocity = Jump_height
+                SCREEN.blit(Jump[frame], (x,y))
+        if message:
+            font = pygame.font.Font("assets/Pixel_like.ttf", 24)
+            text = font.render(message, True, (0, 0, 0))
+            SCREEN.blit(text, (screen_width // 4, screen_height // 2))
+        pygame.display.flip()
+
 def FirstLevel():
     counter = 0
     message=""
@@ -120,7 +233,7 @@ def FirstLevel():
                 elif event.key == pygame.K_LEFT:
                     Left = True
                 if event.key == pygame.K_RETURN and Left == True:
-                    SegundoNivel("Rosa")
+                    Tutorial("Rosa")
         Btn_Message.draw()
         current_time = pygame.time.get_ticks()
         if Left == True: SCREEN.blit(flecha, (250, 150))
@@ -149,6 +262,7 @@ def SegundoNivel(color):
     Dosopciones = pygame.image.load('assets/C2.png')
     Tresopciones = pygame.image.load('assets/C3.png')
     medalla = pygame.image.load('assets/Medallas1.png')
+    jumpvfx = True
     if color == "Blue":
         Personaje = Azul_idle
         moveR = Azul_walking_right
@@ -220,10 +334,13 @@ def SegundoNivel(color):
                 return  # Exit the
             if event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN:
                     level += 1
+                    Correcto =0
+                    jumpvfx = True
                     if level >= 5:
                         TercerNivel(color)
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_UP:
+                    JumpS.play()
                     jumping =True
         keys = pygame.key.get_pressed()
         if keys[pygame.K_RIGHT]:
@@ -362,19 +479,29 @@ def SegundoNivel(color):
         if jumping:
             y -= Y_velocity
             Y_velocity -= Y_gravity
+            #JumpS.play()
             if x >= 100 and x<= 270 and level == 1:
                 Correcto = 2
-            if x >= 950 and x <= 1150 and level == 1:
+            if x >= 850 and x <= 1050 and level == 1:
                 Correcto = 1
+                if jumpvfx:
+                    JumpC.play()
+                    jumpvfx= False
             if x >= 100 and x<= 270 and level == 2:
                 Correcto = 2
             if x >= 950 and x <= 1150 and level == 2:
                 Correcto = 1
+                if jumpvfx:
+                    JumpC.play()
+                    jumpvfx= False
             if x >= 100 and x <= 270 and level == 3:
                     Correcto = 2
             if x >= 500 and x <= 750 and level == 3:
                     Correcto = 1
-            if x >= 950 and x<= 1150 and level == 3:
+                    if jumpvfx:
+                        JumpC.play()
+                        jumpvfx= False
+            if x >= 850 and x<= 1050 and level == 3:
                 Correcto = 2
             if Y_velocity <- Jump_height:
                 jumping= False
@@ -385,7 +512,7 @@ def SegundoNivel(color):
             text = font.render(message, True, (0, 0, 0))
             SCREEN.blit(text, (screen_width // 4, screen_height // 2))
         pygame.display.flip()
-
+############################################################################################################
 def TercerNivel(colour):
     NeuroBG= pygame.image.load('assets/Neuro.png')
     DosopcionesND = pygame.image.load('assets/NeuroOpc.png')
@@ -440,6 +567,7 @@ def TercerNivel(colour):
     Y_velocity =Jump_height
     level = 1
     Correcto =0
+    jumpvfx = True
     while True:
         SCREEN.fill((255, 255, 255))  # Clear screen
         timer.tick(60)
@@ -451,6 +579,8 @@ def TercerNivel(colour):
                 return  # Exit the
             if event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN:
                     level += 1
+                    Correcto = 0
+                    jumpvfx = True
                     if level >= 4:
                         CuartoNivel(colour)
             if event.type == pygame.KEYDOWN:
@@ -526,7 +656,7 @@ def TercerNivel(colour):
                     elif counter >= speed * len(Preguntas[i]):
                         done = True
                     snip = font.render(Preguntas[i][0:counter // speed], True, 'Black')
-                    SCREEN.blit(snip, (38, 560 + (25 * (i - 20))))
+                    SCREEN.blit(snip, (38, 560 + (25 * (i - 15))))
             if Correcto == 2:
                     SCREEN.blit(BG_Mensajes, (0, 520))
                     speed = 5
@@ -555,10 +685,16 @@ def TercerNivel(colour):
                 Correcto = 2
             if x >= 850 and x <= 950 and level == 1:
                 Correcto = 1
+                if jumpvfx:
+                    JumpC.play()
+                    jumpvfx = False
             if x >= 100 and x<= 270 and level == 2:
                 Correcto = 2
             if x >= 850 and x <= 950 and level == 2:
                 Correcto = 1
+                if jumpvfx:
+                    JumpC.play()
+                    jumpvfx = False
             if Y_velocity <- Jump_height:
                 jumping= False
                 Y_velocity = Jump_height
@@ -568,11 +704,13 @@ def TercerNivel(colour):
             text = font.render(message, True, (0, 0, 0))
             SCREEN.blit(text, (screen_width // 4, screen_height // 2))
         pygame.display.flip()
+#############################################################
 def CuartoNivel(colour):
     RainBG= pygame.image.load('assets/Rainbow.png')
     DosopcionesRB = pygame.image.load('assets/2RB.png')
     TresopcionesRB = pygame.image.load('assets/3RB.png')
     medallados = pygame.image.load('assets/Medallas2.png')
+    jumpvfx = True
     if colour == "Blue":
         Personaje = Azul_idle
         moveR = Azul_walking_right
@@ -634,6 +772,8 @@ def CuartoNivel(colour):
                 return  # Exit the
             if event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN:
                     level += 1
+                    Correcto = 0
+                    jumpvfx = True
                     if level >= 5:
                         QuintoNivel(colour)
             if event.type == pygame.KEYDOWN:
@@ -763,18 +903,27 @@ def CuartoNivel(colour):
             Y_velocity -= Y_gravity
             if x >= 100 and x<= 270 and level == 1:
                 Correcto = 1
+                if jumpvfx:
+                    JumpC.play()
+                    jumpvfx = False
             if x >= 950 and x <= 1200 and level == 1:
                 Correcto = 2
             if x >= 75 and x <= 180 and level == 2:
                     Correcto = 2
             if x >= 500 and x <= 790 and level == 2:
                     Correcto = 1
+                    if jumpvfx:
+                        JumpC.play()
+                        jumpvfx = False
             if x >= 950 and x<= 1150 and level == 2:
                     Correcto = 2
             if x >= 110 and x <= 220 and level == 3:
                     Correcto = 2
             if x >= 950 and x <= 1200 and level == 3:
                     Correcto = 1
+                    if jumpvfx:
+                        JumpC.play()
+                        jumpvfx = False
             if Y_velocity <- Jump_height:
                 jumping= False
                 Y_velocity = Jump_height
@@ -784,11 +933,12 @@ def CuartoNivel(colour):
             text = font.render(message, True, (0, 0, 0))
             SCREEN.blit(text, (screen_width // 4, screen_height // 2))
         pygame.display.flip()
-
+#####################################################################################################################
 def QuintoNivel(colour):
     LoveBG= pygame.image.load('assets/LoveBG.png')
     TresopcionesLv = pygame.image.load('assets/LvLootBox.png')
     medalla = pygame.image.load('assets/Medallas3.png')
+    jumpvfx = True
     if colour == "Blue":
         Personaje = Azul_idle
         moveR = Azul_walking_right
@@ -845,6 +995,8 @@ def QuintoNivel(colour):
                 return  # Exit the
             if event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN:
                     level += 1
+                    Correcto = 0
+                    jumpvfx = True
                     if level >= 3:
                         SextoNivel(colour)
             if event.type == pygame.KEYDOWN:
@@ -947,12 +1099,18 @@ def QuintoNivel(colour):
             Y_velocity -= Y_gravity
             if x >= 75 and x <= 180 and level == 1:
                 Correcto = 1
+                if jumpvfx:
+                    JumpC.play()
+                    jumpvfx = False
             if x >= 500 and x <= 790 and level == 1:
                 Correcto = 2
             if x >= 950 and x <= 1150 and level == 1:
                 Correcto = 2
             if x >= 75 and x <= 180 and level == 2:
                 Correcto = 1
+                if jumpvfx:
+                    JumpC.play()
+                    jumpvfx = False
             if x >= 500 and x <= 790 and level == 2:
                 Correcto = 2
             if x >= 950 and x <= 1150 and level == 2:
@@ -966,7 +1124,7 @@ def QuintoNivel(colour):
             text = font.render(message, True, (0, 0, 0))
             SCREEN.blit(text, (screen_width // 4, screen_height // 2))
         pygame.display.flip()
-
+##########################################################
 def SextoNivel(colour):
     LawBG= pygame.image.load('assets/LawBG.png')
     TresopcionesLaw = pygame.image.load('assets/LawLB.png')
@@ -1029,6 +1187,7 @@ def SextoNivel(colour):
     Y_velocity =Jump_height
     level = 1
     Correcto =0
+    jumpvfx = True
     while True:
         SCREEN.fill((255, 255, 255))  # Clear screen
         timer.tick(60)
@@ -1040,6 +1199,8 @@ def SextoNivel(colour):
                 return  # Exit the
             if event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN:
                     level += 1
+                    Correcto = 0
+                    jumpvfx = True
                     if level >= 4:
                         main_menu()
             if event.type == pygame.KEYDOWN:
@@ -1172,14 +1333,26 @@ def SextoNivel(colour):
             Y_velocity -= Y_gravity
             if x >= 75 and x <= 180 and level == 1:
                 Correcto = 1
+                if jumpvfx:
+                    JumpC.play()
+                    jumpvfx = False
             if x >= 500 and x <= 790 and level == 1:
                 Correcto = 1
+                if jumpvfx:
+                    JumpC.play()
+                    jumpvfx = False
             if x >= 950 and x <= 1150 and level == 1:
                 Correcto = 1
+                if jumpvfx:
+                    JumpC.play()
+                    jumpvfx = False
             if x >= 75 and x <= 180 and level == 2:
                 Correcto = 2
             if x >= 500 and x <= 790 and level == 2:
                 Correcto = 1
+                if jumpvfx:
+                    JumpC.play()
+                    jumpvfx = False
             if x >= 950 and x <= 1150 and level == 2:
                 Correcto = 3
             if x >= 75 and x <= 180 and level == 3:
@@ -1188,6 +1361,9 @@ def SextoNivel(colour):
                 Correcto = 2
             if x >= 950 and x <= 1150 and level == 3:
                 Correcto = 1
+                if jumpvfx:
+                    JumpC.play()
+                    jumpvfx = False
             if Y_velocity <- Jump_height:
                 jumping= False
                 Y_velocity = Jump_height
@@ -1246,7 +1422,7 @@ def options():
                 sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if OPTIONS_BACK.checkForInput(OPTIONS_MOUSE_POS):
-                    SegundoNivel()
+                    main_menu()
 
         pygame.display.update()
 
