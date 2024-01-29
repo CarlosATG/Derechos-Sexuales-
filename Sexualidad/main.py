@@ -27,6 +27,9 @@ snip = font.render('', True, 'black')
 speed= 2
 done= False
 flecha = pygame.image.load('assets/Pointer.png')
+mute = pygame.image.load('assets/muteBtn.png').convert()
+mute_rect= mute.get_rect()
+mute_rect.center=(25,20 )
 #Animaciones
 RosaIdle= pygame.image.load("Rosa/Pink_Monster_Idle_4.png").convert_alpha()
 RosaI = spritesheet.SpriteSheet(RosaIdle)
@@ -120,7 +123,6 @@ def Tutorial(color):
     screen_width, screen_height = SCREEN.get_size()
     last_update = pygame.time.get_ticks()
     frame =0
-    running = True
     Preguntas= ["Bienvenido! para moverte usa las felchas en tu teclado.",
                 "Salta con Up si entendiste ",
                 "A) Esta claro",
@@ -136,6 +138,7 @@ def Tutorial(color):
     level = 0
     Correcto =0
     jumpvfx = True
+    music_paused = True
     while True:
         SCREEN.fill((255, 255, 255))  # Clear screen
         timer.tick(60)
@@ -151,6 +154,16 @@ def Tutorial(color):
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_UP:
                     jumping =True
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                if mute_rect.collidepoint(event.pos):
+                    # Toggle the boolean variable.
+                    music_paused = not music_paused
+                    if music_paused:
+                        pygame.mixer.music.pause()
+                    else:
+                        pygame.mixer.music.unpause()
+
+        SCREEN.blit(mute, mute_rect)
         keys = pygame.key.get_pressed()
         if keys[pygame.K_RIGHT]:
             if x < 1100:
@@ -171,7 +184,7 @@ def Tutorial(color):
         # Display the message
         if level == 0:
             for i in range (4):
-                speed = 10
+                speed = 5
                 if counter < speed *len(Preguntas[i]):
                     counter +=1
                 elif counter >=speed*len(Preguntas[i]):
@@ -210,14 +223,15 @@ def Tutorial(color):
 def FirstLevel():
     counter = 0
     message=""
-    font = pygame.font.Font("assets/Pixel_like.ttf", 34)
+    font = pygame.font.Font("assets/Pixel_like.ttf", 24)
     screen_width, screen_height = SCREEN.get_size()
     last_update = pygame.time.get_ticks()
     frame =0
     running = True
-    Primer_Mensaje= 'Escoge a tu personaje y presiona enter...'
+    Primer_Mensaje= 'Escoge a tu personaje con las flechas del teclado y presiona enter...'
     SCREEN.fill((255, 255, 255))  # Clear screen
     Left = True
+    music_paused= False
     while True:
         timer.tick(60)
         SCREEN.blit(GBG, (0,0))
@@ -234,6 +248,19 @@ def FirstLevel():
                     Left = True
                 if event.key == pygame.K_RETURN and Left == True:
                     Tutorial("Rosa")
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_UP:
+                        jumping = True
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                    if mute_rect.collidepoint(event.pos):
+                        # Toggle the boolean variable.
+                        music_paused = not music_paused
+                        if music_paused:
+                            pygame.mixer.music.pause()
+                        else:
+                            pygame.mixer.music.unpause()
+
+        SCREEN.blit(mute, mute_rect)
         Btn_Message.draw()
         current_time = pygame.time.get_ticks()
         if Left == True: SCREEN.blit(flecha, (250, 150))
@@ -263,6 +290,7 @@ def SegundoNivel(color):
     Tresopciones = pygame.image.load('assets/C3.png')
     medalla = pygame.image.load('assets/Medallas1.png')
     jumpvfx = True
+    music_paused= False
     if color == "Blue":
         Personaje = Azul_idle
         moveR = Azul_walking_right
@@ -288,8 +316,8 @@ def SegundoNivel(color):
                 "la progesterona, desarrollan los caracteres sexuales de un individuo. ",
                 "Se ha observado que los hombres con mucha testosterona son musculosos,",
                 "tienen la voz más gruesa y tienen mucha barba. Presiona Enter para continuar",
-                '¿Crees que un nivel bajo de testosterona en hombres/alto de testosterona en mujeres',
-                ' haga que les gusten los hombres/las mujeres?',
+                '¿Crees que un nivel bajo de testosterona en hombres',
+                ' haga que les gusten los hombres?',
                 'A) SI',
                 'B) NO',
                 '¡Correcto! Aunque las hormonas sexuales desempeñan un papel importante en el ',
@@ -342,6 +370,16 @@ def SegundoNivel(color):
                 if event.key == pygame.K_UP:
                     JumpS.play()
                     jumping =True
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                    if mute_rect.collidepoint(event.pos):
+                        # Toggle the boolean variable.
+                        music_paused = not music_paused
+                        if music_paused:
+                            pygame.mixer.music.pause()
+                        else:
+                            pygame.mixer.music.unpause()
+
+        SCREEN.blit(mute, mute_rect)
         keys = pygame.key.get_pressed()
         if keys[pygame.K_RIGHT]:
             if x < 1100:
@@ -514,6 +552,7 @@ def SegundoNivel(color):
         pygame.display.flip()
 ############################################################################################################
 def TercerNivel(colour):
+    music_paused = False
     NeuroBG= pygame.image.load('assets/Neuro.png')
     DosopcionesND = pygame.image.load('assets/NeuroOpc.png')
     medalla = pygame.image.load('assets/Medallas1.png')
@@ -586,6 +625,16 @@ def TercerNivel(colour):
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_UP:
                     jumping =True
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                    if mute_rect.collidepoint(event.pos):
+                        # Toggle the boolean variable.
+                        music_paused = not music_paused
+                        if music_paused:
+                            pygame.mixer.music.pause()
+                        else:
+                            pygame.mixer.music.unpause()
+
+        SCREEN.blit(mute, mute_rect)
         keys = pygame.key.get_pressed()
         if keys[pygame.K_RIGHT]:
             if x < 1100:
@@ -706,6 +755,7 @@ def TercerNivel(colour):
         pygame.display.flip()
 #############################################################
 def CuartoNivel(colour):
+    music_paused=False
     RainBG= pygame.image.load('assets/Rainbow.png')
     DosopcionesRB = pygame.image.load('assets/2RB.png')
     TresopcionesRB = pygame.image.load('assets/3RB.png')
@@ -779,6 +829,16 @@ def CuartoNivel(colour):
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_UP:
                     jumping =True
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                    if mute_rect.collidepoint(event.pos):
+                        # Toggle the boolean variable.
+                        music_paused = not music_paused
+                        if music_paused:
+                            pygame.mixer.music.pause()
+                        else:
+                            pygame.mixer.music.unpause()
+
+        SCREEN.blit(mute, mute_rect)
         keys = pygame.key.get_pressed()
         if keys[pygame.K_RIGHT]:
             if x < 1100:
@@ -935,6 +995,7 @@ def CuartoNivel(colour):
         pygame.display.flip()
 #####################################################################################################################
 def QuintoNivel(colour):
+    music_paused=False
     LoveBG= pygame.image.load('assets/LoveBG.png')
     TresopcionesLv = pygame.image.load('assets/LvLootBox.png')
     medalla = pygame.image.load('assets/Medallas3.png')
@@ -1002,6 +1063,16 @@ def QuintoNivel(colour):
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_UP:
                     jumping =True
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                    if mute_rect.collidepoint(event.pos):
+                        # Toggle the boolean variable.
+                        music_paused = not music_paused
+                        if music_paused:
+                            pygame.mixer.music.pause()
+                        else:
+                            pygame.mixer.music.unpause()
+
+        SCREEN.blit(mute, mute_rect)
         keys = pygame.key.get_pressed()
         if keys[pygame.K_RIGHT]:
             if x < 1100:
@@ -1126,6 +1197,7 @@ def QuintoNivel(colour):
         pygame.display.flip()
 ##########################################################
 def SextoNivel(colour):
+    music_paused = False
     LawBG= pygame.image.load('assets/LawBG.png')
     TresopcionesLaw = pygame.image.load('assets/LawLB.png')
     medalla = pygame.image.load('assets/Medallas4.png')
@@ -1206,6 +1278,16 @@ def SextoNivel(colour):
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_UP:
                     jumping =True
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                    if mute_rect.collidepoint(event.pos):
+                        # Toggle the boolean variable.
+                        music_paused = not music_paused
+                        if music_paused:
+                            pygame.mixer.music.pause()
+                        else:
+                            pygame.mixer.music.unpause()
+
+        SCREEN.blit(mute, mute_rect)
         keys = pygame.key.get_pressed()
         if keys[pygame.K_RIGHT]:
             if x < 1100:
@@ -1374,6 +1456,7 @@ def SextoNivel(colour):
             SCREEN.blit(text, (screen_width // 4, screen_height // 2))
         pygame.display.flip()
 def play():
+    music_paused=False
     while True:
         PLAY_MOUSE_POS = pygame.mouse.get_pos()
 
@@ -1396,6 +1479,16 @@ def play():
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):
                     main_menu()
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                    if mute_rect.collidepoint(event.pos):
+                        # Toggle the boolean variable.
+                        music_paused = not music_paused
+                        if music_paused:
+                            pygame.mixer.music.pause()
+                        else:
+                            pygame.mixer.music.unpause()
+
+        SCREEN.blit(mute, mute_rect)
 
         pygame.display.update()
     
@@ -1434,7 +1527,6 @@ def main_menu():
         #pygame.mixer.music.play(-1)  # The -1 means the music will loop indefinitely
         MENU_TEXT = get_font(40).render("Descubriendo la orientacion sexual", True, "#000000")
         MENU_RECT = MENU_TEXT.get_rect(center=(640, 100))
-
         PLAY_BUTTON = Button(image=pygame.image.load("assets/Play Rect.png"), pos=(640, 250),
                              text_input="JUGAR", font=get_font(75), base_color="#FFB2B2", hovering_color="White")
         OPTIONS_BUTTON = Button(image=pygame.image.load("assets/Options Rect.png"), pos=(640, 400),
