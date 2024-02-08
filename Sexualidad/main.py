@@ -184,7 +184,7 @@ def Tutorial(color):
         # Display the message
         if level == 0:
             for i in range (4):
-                speed = 5
+                speed = 3
                 if counter < speed *len(Preguntas[i]):
                     counter +=1
                 elif counter >=speed*len(Preguntas[i]):
@@ -193,7 +193,7 @@ def Tutorial(color):
                 SCREEN.blit(snip,(38,560+(25*i)))
             if Correcto == 1:
                 SCREEN.blit(BG_Mensajes, (0, 520))
-                speed = 10
+                speed = 3
                 if counter < speed *len(Preguntas[4]):
                     counter +=1
                 elif counter >=speed*len(Preguntas[4]):
@@ -288,9 +288,11 @@ def FirstLevel():
 def SegundoNivel(color):
     Dosopciones = pygame.image.load('assets/C2.png')
     Tresopciones = pygame.image.load('assets/C3.png')
-    medalla = pygame.image.load('assets/Medallas1.png')
+    medalla = pygame.image.load('assets/Med1.png')
+    BarraProg = pygame.image.load('assets/Prog2.png')
     jumpvfx = True
     music_paused= False
+    racha1 = True
     if color == "Blue":
         Personaje = Azul_idle
         moveR = Azul_walking_right
@@ -356,6 +358,7 @@ def SegundoNivel(color):
         SCREEN.fill((255, 255, 255))  # Clear screen
         timer.tick(60)
         SCREEN.blit(Lab, (0,0))
+        SCREEN.blit(BarraProg, (0,0))
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
@@ -365,7 +368,7 @@ def SegundoNivel(color):
                     Correcto =0
                     jumpvfx = True
                     if level >= 5:
-                        TercerNivel(color)
+                        TercerNivel(color, racha1)
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_UP:
                     JumpS.play()
@@ -383,12 +386,12 @@ def SegundoNivel(color):
         keys = pygame.key.get_pressed()
         if keys[pygame.K_RIGHT]:
             if x < 1100:
-                x+= 10
+                x+= 20
                 SCREEN.blit(moveR[frame], (x, y))
             else :SCREEN.blit(Personaje[frame], (x,y))
         elif keys[pygame.K_LEFT]:
             if x > 0:
-                x-=10
+                x-=20
                 SCREEN.blit(moveL[frame], (x, y))
             else : SCREEN.blit(Personaje[frame], (x,y))
         #elif keys[pygame.K_UP]:
@@ -403,7 +406,7 @@ def SegundoNivel(color):
         # Display the message
         if level == 0:
             for i in range (5):
-                speed = 10
+                speed = 3
                 if counter < speed *len(Preguntas[i]):
                     counter +=1
                 elif counter >=speed*len(Preguntas[i]):
@@ -416,7 +419,7 @@ def SegundoNivel(color):
                     return
         if level == 1:
             for i in range(5,9):
-                speed = 5
+                speed = 3
                 if counter < speed * len(Preguntas[i]):
                     counter += 1
                 elif counter >= speed * len(Preguntas[i]):
@@ -427,7 +430,7 @@ def SegundoNivel(color):
             if Correcto == 1:
                 SCREEN.blit(BG_Mensajes, (0, 520))
                 for i in range(9, 13):
-                    speed = 5
+                    speed = 3
                     if counter < speed * len(Preguntas[i]):
                         counter += 1
                     elif counter >= speed * len(Preguntas[i]):
@@ -436,7 +439,7 @@ def SegundoNivel(color):
                     SCREEN.blit(snip, (38, 560 + (25 * (i - 8))))
             if Correcto == 2:
                     SCREEN.blit(BG_Mensajes, (0, 520))
-                    speed = 5
+                    speed = 3
                     if counter < speed * len(Preguntas[13]):
                         counter += 1
                     elif counter >= speed * len(Preguntas[13]):
@@ -446,7 +449,7 @@ def SegundoNivel(color):
                     Correcto = 0
         if level == 2:
             for i in range(14,19):
-                speed = 5
+                speed = 3
                 if counter < speed * len(Preguntas[i]):
                     counter += 1
                 elif counter >= speed * len(Preguntas[i]):
@@ -457,7 +460,7 @@ def SegundoNivel(color):
             if Correcto == 1:
                 SCREEN.blit(BG_Mensajes, (0, 520))
                 for i in range(20, 22):
-                    speed = 5
+                    speed = 3
                     if counter < speed * len(Preguntas[i]):
                         counter += 1
                     elif counter >= speed * len(Preguntas[i]):
@@ -466,7 +469,7 @@ def SegundoNivel(color):
                     SCREEN.blit(snip, (38, 560 + (25 * (i - 20))))
             if Correcto == 2:
                     SCREEN.blit(BG_Mensajes, (0, 520))
-                    speed = 5
+                    speed = 3
                     if counter < speed * len(Preguntas[19]):
                         counter += 1
                     elif counter >= speed * len(Preguntas[19]):
@@ -476,7 +479,7 @@ def SegundoNivel(color):
                     Correcto = 0
         if level == 3:
             for i in range(22,28):
-                speed = 5
+                speed = 3
                 if counter < speed * len(Preguntas[i]):
                     counter += 1
                 elif counter >= speed * len(Preguntas[i]):
@@ -487,7 +490,7 @@ def SegundoNivel(color):
             if Correcto == 1:
                 SCREEN.blit(BG_Mensajes, (0, 520))
                 for i in range(28, 30):
-                    speed = 5
+                    speed = 3
                     if counter < speed * len(Preguntas[i]):
                         counter += 1
                     elif counter >= speed * len(Preguntas[i]):
@@ -496,7 +499,7 @@ def SegundoNivel(color):
                     SCREEN.blit(snip, (38, 560 + (25 * (i - 28))))
             if Correcto == 2:
                     SCREEN.blit(BG_Mensajes, (0, 520))
-                    speed = 5
+                    speed = 3
                     if counter < speed * len(Preguntas[19]):
                         counter += 1
                     elif counter >= speed * len(Preguntas[19]):
@@ -504,10 +507,10 @@ def SegundoNivel(color):
                     snip = font.render(Preguntas[19][0:counter // speed], True, 'Black')
                     SCREEN.blit(snip, (38, 560 ))
                     Correcto = 0
-        if level == 4:
+        if level == 4 and racha1 == True:
             SCREEN.blit(medalla, (0,0))
             for i in range(30, 32):
-                speed = 5
+                speed = 3
                 if counter < speed * len(Preguntas[i]):
                     counter += 1
                 elif counter >= speed * len(Preguntas[i]):
@@ -520,6 +523,7 @@ def SegundoNivel(color):
             #JumpS.play()
             if x >= 100 and x<= 270 and level == 1:
                 Correcto = 2
+                racha1 = False
             if x >= 850 and x <= 1050 and level == 1:
                 Correcto = 1
                 if jumpvfx:
@@ -527,6 +531,7 @@ def SegundoNivel(color):
                     jumpvfx= False
             if x >= 100 and x<= 270 and level == 2:
                 Correcto = 2
+                racha1 = False
             if x >= 950 and x <= 1150 and level == 2:
                 Correcto = 1
                 if jumpvfx:
@@ -534,6 +539,7 @@ def SegundoNivel(color):
                     jumpvfx= False
             if x >= 100 and x <= 270 and level == 3:
                     Correcto = 2
+                    racha1 = False
             if x >= 500 and x <= 750 and level == 3:
                     Correcto = 1
                     if jumpvfx:
@@ -541,6 +547,7 @@ def SegundoNivel(color):
                         jumpvfx= False
             if x >= 850 and x<= 1050 and level == 3:
                 Correcto = 2
+                racha1 = False
             if Y_velocity <- Jump_height:
                 jumping= False
                 Y_velocity = Jump_height
@@ -551,11 +558,13 @@ def SegundoNivel(color):
             SCREEN.blit(text, (screen_width // 4, screen_height // 2))
         pygame.display.flip()
 ############################################################################################################
-def TercerNivel(colour):
+def TercerNivel(colour, racha1):
     music_paused = False
     NeuroBG= pygame.image.load('assets/Neuro.png')
     DosopcionesND = pygame.image.load('assets/NeuroOpc.png')
-    medalla = pygame.image.load('assets/Medallas1.png')
+    medalla = pygame.image.load('assets/Med1.png')
+    BarraProg = pygame.image.load('assets/Prog3.png')
+    racha2 = True
     if colour == "Blue":
         Personaje = Azul_idle
         moveR = Azul_walking_right
@@ -596,7 +605,8 @@ def TercerNivel(colour):
                 'persona”, es más, podemos liberar dicho químico con personas a las que estimamos',
                 'mucho, como nuestros amigos y familiares cercanos. Enter para continuar',
                 "Felicidades, ya tienes la medalla de este nivel!",
-                "Continua aprendiendo para ganar mas"
+                "Continua aprendiendo para ganar mas",
+                "No obtuviste le medalla, continua al siguiente nivel"
                 ]
     SCREEN.fill((255, 255, 255))  # Clear screen
     x= 300
@@ -611,7 +621,9 @@ def TercerNivel(colour):
         SCREEN.fill((255, 255, 255))  # Clear screen
         timer.tick(60)
         SCREEN.blit(NeuroBG, (0,0))
-        SCREEN.blit(medalla, (0,0))
+        SCREEN.blit(BarraProg, (0, 0))
+        if racha1 == True:
+            SCREEN.blit(medalla, (0, 0))
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
@@ -621,7 +633,7 @@ def TercerNivel(colour):
                     Correcto = 0
                     jumpvfx = True
                     if level >= 4:
-                        CuartoNivel(colour)
+                        CuartoNivel(colour, racha1, racha2)
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_UP:
                     jumping =True
@@ -658,7 +670,7 @@ def TercerNivel(colour):
         # Display the message
         if level == 1:
             for i in range(5):
-                speed = 5
+                speed = 3
                 if counter < speed * len(Preguntas[i]):
                     counter += 1
                 elif counter >= speed * len(Preguntas[i]):
@@ -669,7 +681,7 @@ def TercerNivel(colour):
             if Correcto == 1:
                 SCREEN.blit(BG_Mensajes, (0, 520))
                 for i in range(5, 9):
-                    speed = 5
+                    speed = 3
                     if counter < speed * len(Preguntas[i]):
                         counter += 1
                     elif counter >= speed * len(Preguntas[i]):
@@ -678,7 +690,7 @@ def TercerNivel(colour):
                     SCREEN.blit(snip, (38, 560 + (25 * (i - 5))))
             if Correcto == 2:
                     SCREEN.blit(BG_Mensajes, (0, 520))
-                    speed = 5
+                    speed = 3
                     if counter < speed * len(Preguntas[9]):
                         counter += 1
                     elif counter >= speed * len(Preguntas[9]):
@@ -688,7 +700,7 @@ def TercerNivel(colour):
                     Correcto = 0
         if level == 2:
             for i in range(10,15):
-                speed = 5
+                speed = 3
                 if counter < speed * len(Preguntas[i]):
                     counter += 1
                 elif counter >= speed * len(Preguntas[i]):
@@ -699,7 +711,7 @@ def TercerNivel(colour):
             if Correcto == 1:
                 SCREEN.blit(BG_Mensajes, (0, 520))
                 for i in range(15,18):
-                    speed = 5
+                    speed = 3
                     if counter < speed * len(Preguntas[i]):
                         counter += 1
                     elif counter >= speed * len(Preguntas[i]):
@@ -708,7 +720,7 @@ def TercerNivel(colour):
                     SCREEN.blit(snip, (38, 560 + (25 * (i - 15))))
             if Correcto == 2:
                     SCREEN.blit(BG_Mensajes, (0, 520))
-                    speed = 5
+                    speed = 3
                     if counter < speed * len(Preguntas[9]):
                         counter += 1
                     elif counter >= speed * len(Preguntas[9]):
@@ -717,21 +729,32 @@ def TercerNivel(colour):
                     SCREEN.blit(snip, (38, 560 ))
                     Correcto = 0
         if level == 3:
-            medallados = pygame.image.load('assets/Medallas2.png')
-            SCREEN.blit(medallados, (0,0))
-            for i in range(18, 20):
-                speed = 5
-                if counter < speed * len(Preguntas[i]):
+            if racha2 == True:
+                medallados = pygame.image.load('assets/Med2.png')
+                SCREEN.blit(medallados, (0,0))
+                for i in range(18, 20):
+                    speed = 3
+                    if counter < speed * len(Preguntas[i]):
+                        counter += 1
+                    elif counter >= speed * len(Preguntas[i]):
+                        done = True
+                    snip = font.render(Preguntas[i][0:counter // speed], True, 'Black')
+                    SCREEN.blit(snip, (38, 560 + (25 * (i - 18))))
+            else:
+                SCREEN.blit(BG_Mensajes, (0, 520))
+                speed = 3
+                if counter < speed * len(Preguntas[20]):
                     counter += 1
-                elif counter >= speed * len(Preguntas[i]):
+                elif counter >= speed * len(Preguntas[20]):
                     done = True
-                snip = font.render(Preguntas[i][0:counter // speed], True, 'Black')
-                SCREEN.blit(snip, (38, 560 + (25 * (i - 18))))
+                snip = font.render(Preguntas[20][0:counter // speed], True, 'Black')
+                SCREEN.blit(snip, (38, 560))
         if jumping:
             y -= Y_velocity
             Y_velocity -= Y_gravity
             if x >= 100 and x<= 270 and level == 1:
                 Correcto = 2
+                racha2 =False
             if x >= 850 and x <= 950 and level == 1:
                 Correcto = 1
                 if jumpvfx:
@@ -739,6 +762,7 @@ def TercerNivel(colour):
                     jumpvfx = False
             if x >= 100 and x<= 270 and level == 2:
                 Correcto = 2
+                racha2 = False
             if x >= 850 and x <= 950 and level == 2:
                 Correcto = 1
                 if jumpvfx:
@@ -753,14 +777,17 @@ def TercerNivel(colour):
             text = font.render(message, True, (0, 0, 0))
             SCREEN.blit(text, (screen_width // 4, screen_height // 2))
         pygame.display.flip()
-#############################################################
-def CuartoNivel(colour):
+############################################################# NIvel de Unicornios
+def CuartoNivel(colour, racha1, racha2):
     music_paused=False
     RainBG= pygame.image.load('assets/Rainbow.png')
     DosopcionesRB = pygame.image.load('assets/2RB.png')
     TresopcionesRB = pygame.image.load('assets/3RB.png')
-    medallados = pygame.image.load('assets/Medallas2.png')
+    medallados = pygame.image.load('assets/Med2.png')
+    medallauno = pygame.image.load('assets/Med1.png')
+    BarraProg = pygame.image.load('assets/Prog4.png')
     jumpvfx = True
+    racha3= True
     if colour == "Blue":
         Personaje = Azul_idle
         moveR = Azul_walking_right
@@ -801,7 +828,8 @@ def CuartoNivel(colour):
                 'B) NO',
                 'Muy bien, tqm. Enter para continuar ',
                 "Felicidades, ya tienes la medalla de este nivel!",
-                "Continua aprendiendo para ganar mas"
+                "Continua aprendiendo para ganar mas",
+                "No obtuviste le medalla, continua al siguiente nivel"
                 ]
     SCREEN.fill((255, 255, 255))  # Clear screen
     x= 300
@@ -815,7 +843,11 @@ def CuartoNivel(colour):
         SCREEN.fill((255, 255, 255))  # Clear screen
         timer.tick(60)
         SCREEN.blit(RainBG, (0,0))
-        SCREEN.blit(medallados, (0,0))
+        SCREEN.blit(BarraProg, (0, 0))
+        if racha1 == True:
+            SCREEN.blit(medallauno, (0, 0))
+        if racha2 == True:
+            SCREEN.blit(medallados, (0, 0))
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
@@ -825,7 +857,7 @@ def CuartoNivel(colour):
                     Correcto = 0
                     jumpvfx = True
                     if level >= 5:
-                        QuintoNivel(colour)
+                        QuintoNivel(colour, racha1, racha2,racha3)
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_UP:
                     jumping =True
@@ -862,7 +894,7 @@ def CuartoNivel(colour):
         # Display the message
         if level == 1:
             for i in range(6):
-                speed = 5
+                speed = 3
                 if counter < speed * len(Preguntas[i]):
                     counter += 1
                 elif counter >= speed * len(Preguntas[i]):
@@ -872,7 +904,7 @@ def CuartoNivel(colour):
             SCREEN.blit(DosopcionesRB, (0,0))
             if Correcto == 1:
                 SCREEN.blit(BG_Mensajes, (0, 520))
-                speed = 5
+                speed = 3
                 if counter < speed * len(Preguntas[6]):
                     counter += 1
                 elif counter >= speed * len(Preguntas[6]):
@@ -881,7 +913,7 @@ def CuartoNivel(colour):
                 SCREEN.blit(snip, (38, 560 ))
             if Correcto == 2:
                     SCREEN.blit(BG_Mensajes, (0, 520))
-                    speed = 5
+                    speed = 3
                     if counter < speed * len(Preguntas[7]):
                         counter += 1
                     elif counter >= speed * len(Preguntas[7]):
@@ -891,7 +923,7 @@ def CuartoNivel(colour):
                     Correcto = 0
         if level == 2:
             for i in range(8,14):
-                speed = 5
+                speed = 3
                 if counter < speed * len(Preguntas[i]):
                     counter += 1
                 elif counter >= speed * len(Preguntas[i]):
@@ -901,7 +933,7 @@ def CuartoNivel(colour):
             SCREEN.blit(TresopcionesRB, (0,0))
             if Correcto == 1:
                 SCREEN.blit(BG_Mensajes, (0, 520))
-                speed = 5
+                speed = 3
                 if counter < speed * len(Preguntas[14]):
                     counter += 1
                 elif counter >= speed * len(Preguntas[14]):
@@ -910,7 +942,7 @@ def CuartoNivel(colour):
                 SCREEN.blit(snip, (38, 560 + 25 ))
             if Correcto == 2:
                     SCREEN.blit(BG_Mensajes, (0, 520))
-                    speed = 5
+                    speed = 3
                     if counter < speed * len(Preguntas[7]):
                         counter += 1
                     elif counter >= speed * len(Preguntas[7]):
@@ -920,7 +952,7 @@ def CuartoNivel(colour):
                     Correcto = 0
         if level == 3:
             for i in range(15,18):
-                speed = 5
+                speed = 3
                 if counter < speed * len(Preguntas[i]):
                     counter += 1
                 elif counter >= speed * len(Preguntas[i]):
@@ -930,7 +962,7 @@ def CuartoNivel(colour):
             SCREEN.blit(DosopcionesRB, (0,0))
             if Correcto == 1:
                 SCREEN.blit(BG_Mensajes, (0, 520))
-                speed = 5
+                speed = 3
                 if counter < speed * len(Preguntas[18]):
                     counter += 1
                 elif counter >= speed * len(Preguntas[18]):
@@ -939,7 +971,7 @@ def CuartoNivel(colour):
                 SCREEN.blit(snip, (38, 560 ))
             if Correcto == 2:
                     SCREEN.blit(BG_Mensajes, (0, 520))
-                    speed = 5
+                    speed = 3
                     if counter < speed * len(Preguntas[7]):
                         counter += 1
                     elif counter >= speed * len(Preguntas[7]):
@@ -948,16 +980,26 @@ def CuartoNivel(colour):
                     SCREEN.blit(snip, (38, 560 ))
                     Correcto = 0
         if level == 4:
-            medallados = pygame.image.load('assets/Medallas3.png')
-            SCREEN.blit(medallados, (0,0))
-            for i in range(19, 21):
-                speed = 5
-                if counter < speed * len(Preguntas[i]):
+            if racha3 == True:
+                medallatres = pygame.image.load('assets/Med3.png')
+                SCREEN.blit(medallatres, (0,0))
+                for i in range(19, 21):
+                    speed = 3
+                    if counter < speed * len(Preguntas[i]):
+                        counter += 1
+                    elif counter >= speed * len(Preguntas[i]):
+                        done = True
+                    snip = font.render(Preguntas[i][0:counter // speed], True, 'Black')
+                    SCREEN.blit(snip, (38, 560 + (25 * (i - 18))))
+            else:
+                SCREEN.blit(BG_Mensajes, (0, 520))
+                speed = 3
+                if counter < speed * len(Preguntas[20]):
                     counter += 1
-                elif counter >= speed * len(Preguntas[i]):
+                elif counter >= speed * len(Preguntas[20]):
                     done = True
-                snip = font.render(Preguntas[i][0:counter // speed], True, 'Black')
-                SCREEN.blit(snip, (38, 560 + (25 * (i - 18))))
+                snip = font.render(Preguntas[20][0:counter // speed], True, 'Black')
+                SCREEN.blit(snip, (38, 560))
         if jumping:
             y -= Y_velocity
             Y_velocity -= Y_gravity
@@ -968,8 +1010,10 @@ def CuartoNivel(colour):
                     jumpvfx = False
             if x >= 950 and x <= 1200 and level == 1:
                 Correcto = 2
+                racha3=False
             if x >= 75 and x <= 180 and level == 2:
                     Correcto = 2
+                    racha3 = False
             if x >= 500 and x <= 790 and level == 2:
                     Correcto = 1
                     if jumpvfx:
@@ -977,8 +1021,10 @@ def CuartoNivel(colour):
                         jumpvfx = False
             if x >= 950 and x<= 1150 and level == 2:
                     Correcto = 2
+                    racha3 = False
             if x >= 110 and x <= 220 and level == 3:
                     Correcto = 2
+                    racha3 = False
             if x >= 950 and x <= 1200 and level == 3:
                     Correcto = 1
                     if jumpvfx:
@@ -994,12 +1040,16 @@ def CuartoNivel(colour):
             SCREEN.blit(text, (screen_width // 4, screen_height // 2))
         pygame.display.flip()
 #####################################################################################################################
-def QuintoNivel(colour):
+def QuintoNivel(colour, racha1,racha2,racha3):
     music_paused=False
     LoveBG= pygame.image.load('assets/LoveBG.png')
     TresopcionesLv = pygame.image.load('assets/LvLootBox.png')
-    medalla = pygame.image.load('assets/Medallas3.png')
+    medallauno = pygame.image.load('assets/Med1.png')
+    medallados = pygame.image.load('assets/Med2.png')
+    medallatres = pygame.image.load('assets/Med3.png')
+    BarraProg = pygame.image.load('assets/Prog5.png')
     jumpvfx = True
+    racha4=True
     if colour == "Blue":
         Personaje = Azul_idle
         moveR = Azul_walking_right
@@ -1035,7 +1085,8 @@ def QuintoNivel(colour):
                 'La orientación sexual es una conducta compleja que está determinada por',
                 'gran variedad de factores, muchos aquí expuestos, incluyendo al ',
                 'aprendizaje, la combinación de todos ellos posibilida la muestra de algún',
-                'tipo de orientación sexual. Enter para continuar '
+                'tipo de orientación sexual. Enter para continuar',
+                "No obtuviste le medalla, continua al siguiente nivel"
                 ]
     SCREEN.fill((255, 255, 255))  # Clear screen
     x= 300
@@ -1049,7 +1100,13 @@ def QuintoNivel(colour):
         SCREEN.fill((255, 255, 255))  # Clear screen
         timer.tick(60)
         SCREEN.blit(LoveBG, (0,0))
-        SCREEN.blit(medalla, (0,0))
+        SCREEN.blit(BarraProg, (0, 0))
+        if racha1 == True:
+            SCREEN.blit(medallauno, (0, 0))
+        if racha2 == True:
+            SCREEN.blit(medallados, (0, 0))
+        if racha3 ==True:
+            SCREEN.blit(medallatres, (0, 0))
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
@@ -1059,7 +1116,7 @@ def QuintoNivel(colour):
                     Correcto = 0
                     jumpvfx = True
                     if level >= 3:
-                        SextoNivel(colour)
+                        SextoNivel(colour,racha1,racha2,racha3,racha4)
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_UP:
                     jumping =True
@@ -1096,7 +1153,7 @@ def QuintoNivel(colour):
         # Display the message
         if level == 1:
             for i in range(5):
-                speed = 5
+                speed = 3
                 if counter < speed * len(Preguntas[i]):
                     counter += 1
                 elif counter >= speed * len(Preguntas[i]):
@@ -1107,7 +1164,7 @@ def QuintoNivel(colour):
             if Correcto == 1:
                 SCREEN.blit(BG_Mensajes, (0, 520))
                 for i in range(5, 7):
-                    speed = 5
+                    speed = 3
                     if counter < speed * len(Preguntas[i]):
                         counter += 1
                     elif counter >= speed * len(Preguntas[i]):
@@ -1116,7 +1173,7 @@ def QuintoNivel(colour):
                     SCREEN.blit(snip, (38, 560 + (25 * (i - 5))))
             if Correcto == 2:
                     SCREEN.blit(BG_Mensajes, (0, 520))
-                    speed = 5
+                    speed = 3
                     if counter < speed * len(Preguntas[7]):
                         counter += 1
                     elif counter >= speed * len(Preguntas[7]):
@@ -1126,7 +1183,7 @@ def QuintoNivel(colour):
                     Correcto = 0
         if level == 2:
             for i in range(8,12):
-                speed = 5
+                speed = 3
                 if counter < speed * len(Preguntas[i]):
                     counter += 1
                 elif counter >= speed * len(Preguntas[i]):
@@ -1137,7 +1194,7 @@ def QuintoNivel(colour):
             if Correcto == 1:
                 SCREEN.blit(BG_Mensajes, (0, 520))
                 for i in range(12,16):
-                    speed = 5
+                    speed = 3
                     if counter < speed * len(Preguntas[i]):
                         counter += 1
                     elif counter >= speed * len(Preguntas[i]):
@@ -1146,7 +1203,7 @@ def QuintoNivel(colour):
                     SCREEN.blit(snip, (38, 560 + (25 * (i - 12))))
             if Correcto == 2:
                     SCREEN.blit(BG_Mensajes, (0, 520))
-                    speed = 5
+                    speed = 3
                     if counter < speed * len(Preguntas[7]):
                         counter += 1
                     elif counter >= speed * len(Preguntas[7]):
@@ -1155,16 +1212,26 @@ def QuintoNivel(colour):
                     SCREEN.blit(snip, (38, 560 ))
                     Correcto = 0
         if level == 3:
-            medallacuatro = pygame.image.load('assets/Medallas4.png')
-            SCREEN.blit(medallacuatro, (0,0))
-            for i in range(18, 20):
-                speed = 5
-                if counter < speed * len(Preguntas[i]):
+            if racha4 == True:
+                medallacuatro = pygame.image.load('assets/Med4.png')
+                SCREEN.blit(medallacuatro, (0,0))
+                for i in range(12, 16):
+                    speed = 3
+                    if counter < speed * len(Preguntas[i]):
+                        counter += 1
+                    elif counter >= speed * len(Preguntas[i]):
+                        done = True
+                    snip = font.render(Preguntas[i][0:counter // speed], True, 'Black')
+                    SCREEN.blit(snip, (38, 560 + (25 * (i - 18))))
+            else:
+                SCREEN.blit(BG_Mensajes, (0, 520))
+                speed = 3
+                if counter < speed * len(Preguntas[16]):
                     counter += 1
-                elif counter >= speed * len(Preguntas[i]):
+                elif counter >= speed * len(Preguntas[16]):
                     done = True
-                snip = font.render(Preguntas[i][0:counter // speed], True, 'Black')
-                SCREEN.blit(snip, (38, 560 + (25 * (i - 18))))
+                snip = font.render(Preguntas[16][0:counter // speed], True, 'Black')
+
         if jumping:
             y -= Y_velocity
             Y_velocity -= Y_gravity
@@ -1175,8 +1242,10 @@ def QuintoNivel(colour):
                     jumpvfx = False
             if x >= 500 and x <= 790 and level == 1:
                 Correcto = 2
+                racha4 = False
             if x >= 950 and x <= 1150 and level == 1:
                 Correcto = 2
+                racha4 = False
             if x >= 75 and x <= 180 and level == 2:
                 Correcto = 1
                 if jumpvfx:
@@ -1184,8 +1253,10 @@ def QuintoNivel(colour):
                     jumpvfx = False
             if x >= 500 and x <= 790 and level == 2:
                 Correcto = 2
+                racha4 = False
             if x >= 950 and x <= 1150 and level == 2:
                 Correcto = 2
+                racha4 = False
             if Y_velocity <- Jump_height:
                 jumping= False
                 Y_velocity = Jump_height
@@ -1196,11 +1267,15 @@ def QuintoNivel(colour):
             SCREEN.blit(text, (screen_width // 4, screen_height // 2))
         pygame.display.flip()
 ##########################################################
-def SextoNivel(colour):
+def SextoNivel(colour,racha1,racha2,racha3,racha4):
     music_paused = False
     LawBG= pygame.image.load('assets/LawBG.png')
     TresopcionesLaw = pygame.image.load('assets/LawLB.png')
-    medalla = pygame.image.load('assets/Medallas4.png')
+    medallauno = pygame.image.load('assets/Med1.png')
+    medallados = pygame.image.load('assets/Med2.png')
+    medallatres = pygame.image.load('assets/Med3.png')
+    medallacuatro = pygame.image.load('assets/Med4.png')
+    BarraProg = pygame.image.load('assets/Prog6.png')
     if colour == "Blue":
         Personaje = Azul_idle
         moveR = Azul_walking_right
@@ -1264,7 +1339,15 @@ def SextoNivel(colour):
         SCREEN.fill((255, 255, 255))  # Clear screen
         timer.tick(60)
         SCREEN.blit(LawBG, (0,0))
-        SCREEN.blit(medalla, (0,0))
+        SCREEN.blit(BarraProg, (0, 0))
+        if racha1 == True:
+            SCREEN.blit(medallauno, (0, 0))
+        if racha2 == True:
+            SCREEN.blit(medallados, (0, 0))
+        if racha3 ==True:
+            SCREEN.blit(medallatres, (0, 0))
+        if racha4 ==True:
+            SCREEN.blit(medallacuatro, (0, 0))
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
@@ -1311,7 +1394,7 @@ def SextoNivel(colour):
         # Display the message
         if level == 1:
             for i in range(4):
-                speed = 5
+                speed = 3
                 if counter < speed * len(Preguntas[i]):
                     counter += 1
                 elif counter >= speed * len(Preguntas[i]):
@@ -1322,7 +1405,7 @@ def SextoNivel(colour):
             if Correcto == 1:
                 SCREEN.blit(BG_Mensajes, (0, 520))
                 for i in range(4, 10):
-                    speed = 5
+                    speed = 3
                     if counter < speed * len(Preguntas[i]):
                         counter += 1
                     elif counter >= speed * len(Preguntas[i]):
@@ -1331,7 +1414,7 @@ def SextoNivel(colour):
                     SCREEN.blit(snip, (38, 560 + (22 * (i - 4))))
         if level == 2:
             for i in range(10,14):
-                speed = 5
+                speed = 3
                 if counter < speed * len(Preguntas[i]):
                     counter += 1
                 elif counter >= speed * len(Preguntas[i]):
@@ -1342,7 +1425,7 @@ def SextoNivel(colour):
             if Correcto == 1:
                 SCREEN.blit(BG_Mensajes, (0, 520))
                 for i in range(14,18):
-                    speed = 5
+                    speed = 3
                     if counter < speed * len(Preguntas[i]):
                         counter += 1
                     elif counter >= speed * len(Preguntas[i]):
@@ -1351,7 +1434,7 @@ def SextoNivel(colour):
                     SCREEN.blit(snip, (38, 560 + (25 * (i - 14))))
             if Correcto == 2:
                     SCREEN.blit(BG_Mensajes, (0, 520))
-                    speed = 5
+                    speed = 3
                     if counter < speed * len(Preguntas[20]):
                         counter += 1
                     elif counter >= speed * len(Preguntas[20]):
@@ -1361,7 +1444,7 @@ def SextoNivel(colour):
                     Correcto = 0
             if Correcto == 3:
                     SCREEN.blit(BG_Mensajes, (0, 520))
-                    speed = 5
+                    speed = 3
                     if counter < speed * len(Preguntas[19]):
                         counter += 1
                     elif counter >= speed * len(Preguntas[19]):
@@ -1371,7 +1454,7 @@ def SextoNivel(colour):
                     Correcto = 0
         if level == 3:
             for i in range(21,27):
-                speed = 5
+                speed = 3
                 if counter < speed * len(Preguntas[i]):
                     counter += 1
                 elif counter >= speed * len(Preguntas[i]):
@@ -1382,7 +1465,7 @@ def SextoNivel(colour):
             if Correcto == 1:
                 SCREEN.blit(BG_Mensajes, (0, 520))
                 for i in range(27,29):
-                    speed = 5
+                    speed = 3
                     if counter < speed * len(Preguntas[i]):
                         counter += 1
                     elif counter >= speed * len(Preguntas[i]):
@@ -1391,7 +1474,7 @@ def SextoNivel(colour):
                     SCREEN.blit(snip, (38, 560 + (25 * (i - 27))))
             if Correcto == 2:
                     SCREEN.blit(BG_Mensajes, (0, 520))
-                    speed = 5
+                    speed = 3
                     if counter < speed * len(Preguntas[20]):
                         counter += 1
                     elif counter >= speed * len(Preguntas[20]):
@@ -1403,7 +1486,7 @@ def SextoNivel(colour):
             medallacuatro = pygame.image.load('assets/Medallas4.png')
             SCREEN.blit(medallacuatro, (0,0))
             for i in range(12, 16):
-                speed = 5
+                speed = 3
                 if counter < speed * len(Preguntas[i]):
                     counter += 1
                 elif counter >= speed * len(Preguntas[i]):
