@@ -14,10 +14,9 @@ JumpC.set_volume(0.5)
 SCREEN = pygame.display.set_mode((1280, 720))
 pygame.display.set_caption("Menu")
 #Fondos
-medalla = pygame.image.load('assets/Medallas1.png')
-BG = pygame.image.load("assets/Arcoiris.png")
-GBG = pygame.image.load("assets/gameBG.png")
-Lab = pygame.image.load("assets/Lab.png")
+BG = pygame.image.load("assets/Arcoiris.png").convert_alpha()
+GBG = pygame.image.load("assets/gameBG.png").convert_alpha()
+Lab = pygame.image.load("assets/Lab.png").convert_alpha()
 Siguiente = pygame.image.load("assets/next.png").convert_alpha()
 Back= pygame.image.load("assets/back.png").convert_alpha()
 BG_Mensajes= pygame.image.load("assets/Messages.png").convert_alpha()
@@ -26,7 +25,7 @@ timer=pygame.time.Clock()
 snip = font.render('', True, 'black')
 speed= 2
 done= False
-flecha = pygame.image.load('assets/Pointer.png')
+flecha = pygame.image.load('assets/Pointer.png').convert_alpha()
 mute = pygame.image.load('assets/muteBtn.png').convert()
 mute_rect= mute.get_rect()
 mute_rect.center=(25,20 )
@@ -103,7 +102,7 @@ def get_font(size): # Returns Press-Start-2P in the desired size
 
 
 def Tutorial(color):
-    TutorialBg = pygame.image.load('assets/TutBG.png')
+    TutorialBg = pygame.image.load('assets/TutBG.png').convert_alpha()
     if color == "Blue":
         Personaje = Azul_idle
         moveR = Azul_walking_right
@@ -167,12 +166,12 @@ def Tutorial(color):
         keys = pygame.key.get_pressed()
         if keys[pygame.K_RIGHT]:
             if x < 1100:
-                x+= 10
+                x+= 20
                 SCREEN.blit(moveR[frame], (x, y))
             else :SCREEN.blit(Personaje[frame], (x,y))
         elif keys[pygame.K_LEFT]:
             if x > 0:
-                x-=10
+                x-=20
                 SCREEN.blit(moveL[frame], (x, y))
             else : SCREEN.blit(Personaje[frame], (x,y))
         else: SCREEN.blit(Personaje[frame], (x,y))
@@ -286,10 +285,10 @@ def FirstLevel():
         pygame.display.flip()
 
 def SegundoNivel(color):
-    Dosopciones = pygame.image.load('assets/C2.png')
-    Tresopciones = pygame.image.load('assets/C3.png')
-    medalla = pygame.image.load('assets/Med1.png')
-    BarraProg = pygame.image.load('assets/Prog2.png')
+    Dosopciones = pygame.image.load('assets/C2.png').convert_alpha()
+    Tresopciones = pygame.image.load('assets/C3.png').convert_alpha()
+    medalla = pygame.image.load('assets/Med1.png').convert_alpha()
+    BarraProg = pygame.image.load('assets/Prog2.png').convert_alpha()
     jumpvfx = True
     music_paused= False
     racha1 = True
@@ -560,10 +559,10 @@ def SegundoNivel(color):
 ############################################################################################################
 def TercerNivel(colour, racha1):
     music_paused = False
-    NeuroBG= pygame.image.load('assets/Neuro.png')
-    DosopcionesND = pygame.image.load('assets/NeuroOpc.png')
-    medalla = pygame.image.load('assets/Med1.png')
-    BarraProg = pygame.image.load('assets/Prog3.png')
+    NeuroBG= pygame.image.load('assets/Neuro.png').convert_alpha()
+    DosopcionesND = pygame.image.load('assets/NeuroOpc.png').convert_alpha()
+    medalla = pygame.image.load('assets/Med1.png').convert_alpha()
+    BarraProg = pygame.image.load('assets/Prog3.png').convert_alpha()
     racha2 = True
     if colour == "Blue":
         Personaje = Azul_idle
@@ -650,12 +649,12 @@ def TercerNivel(colour, racha1):
         keys = pygame.key.get_pressed()
         if keys[pygame.K_RIGHT]:
             if x < 1100:
-                x+= 10
+                x+= 20
                 SCREEN.blit(moveR[frame], (x, y))
             else :SCREEN.blit(Personaje[frame], (x,y))
         elif keys[pygame.K_LEFT]:
             if x > 0:
-                x-=10
+                x-=20
                 SCREEN.blit(moveL[frame], (x, y))
             else : SCREEN.blit(Personaje[frame], (x,y))
         #elif keys[pygame.K_UP]:
@@ -730,7 +729,7 @@ def TercerNivel(colour, racha1):
                     Correcto = 0
         if level == 3:
             if racha2 == True:
-                medallados = pygame.image.load('assets/Med2.png')
+                medallados = pygame.image.load('assets/Med2.png').convert_alpha()
                 SCREEN.blit(medallados, (0,0))
                 for i in range(18, 20):
                     speed = 3
@@ -780,12 +779,12 @@ def TercerNivel(colour, racha1):
 ############################################################# NIvel de Unicornios
 def CuartoNivel(colour, racha1, racha2):
     music_paused=False
-    RainBG= pygame.image.load('assets/Rainbow.png')
-    DosopcionesRB = pygame.image.load('assets/2RB.png')
-    TresopcionesRB = pygame.image.load('assets/3RB.png')
-    medallados = pygame.image.load('assets/Med2.png')
-    medallauno = pygame.image.load('assets/Med1.png')
-    BarraProg = pygame.image.load('assets/Prog4.png')
+    RainBG= pygame.image.load('assets/Rainbow.png').convert_alpha()
+    DosopcionesRB = pygame.image.load('assets/2RB.png').convert_alpha()
+    TresopcionesRB = pygame.image.load('assets/3RB.png').convert_alpha()
+    medallados = pygame.image.load('assets/Med2.png').convert_alpha()
+    medallauno = pygame.image.load('assets/Med1.png').convert_alpha()
+    BarraProg = pygame.image.load('assets/Prog4.png').convert_alpha()
     jumpvfx = True
     racha3= True
     if colour == "Blue":
@@ -874,12 +873,12 @@ def CuartoNivel(colour, racha1, racha2):
         keys = pygame.key.get_pressed()
         if keys[pygame.K_RIGHT]:
             if x < 1100:
-                x+= 10
+                x+= 20
                 SCREEN.blit(moveR[frame], (x, y))
             else :SCREEN.blit(Personaje[frame], (x,y))
         elif keys[pygame.K_LEFT]:
             if x > 0:
-                x-=10
+                x-=20
                 SCREEN.blit(moveL[frame], (x, y))
             else : SCREEN.blit(Personaje[frame], (x,y))
         #elif keys[pygame.K_UP]:
@@ -981,7 +980,7 @@ def CuartoNivel(colour, racha1, racha2):
                     Correcto = 0
         if level == 4:
             if racha3 == True:
-                medallatres = pygame.image.load('assets/Med3.png')
+                medallatres = pygame.image.load('assets/Med3.png').convert_alpha()
                 SCREEN.blit(medallatres, (0,0))
                 for i in range(19, 21):
                     speed = 3
@@ -1042,12 +1041,12 @@ def CuartoNivel(colour, racha1, racha2):
 #####################################################################################################################
 def QuintoNivel(colour, racha1,racha2,racha3):
     music_paused=False
-    LoveBG= pygame.image.load('assets/LoveBG.png')
-    TresopcionesLv = pygame.image.load('assets/LvLootBox.png')
-    medallauno = pygame.image.load('assets/Med1.png')
-    medallados = pygame.image.load('assets/Med2.png')
-    medallatres = pygame.image.load('assets/Med3.png')
-    BarraProg = pygame.image.load('assets/Prog5.png')
+    LoveBG= pygame.image.load('assets/LoveBG.png').convert_alpha()
+    TresopcionesLv = pygame.image.load('assets/LvLootBox.png').convert_alpha()
+    medallauno = pygame.image.load('assets/Med1.png').convert_alpha()
+    medallados = pygame.image.load('assets/Med2.png').convert_alpha()
+    medallatres = pygame.image.load('assets/Med3.png').convert_alpha()
+    BarraProg = pygame.image.load('assets/Prog5.png').convert_alpha()
     jumpvfx = True
     racha4=True
     if colour == "Blue":
@@ -1133,12 +1132,12 @@ def QuintoNivel(colour, racha1,racha2,racha3):
         keys = pygame.key.get_pressed()
         if keys[pygame.K_RIGHT]:
             if x < 1100:
-                x+= 10
+                x+= 20
                 SCREEN.blit(moveR[frame], (x, y))
             else :SCREEN.blit(Personaje[frame], (x,y))
         elif keys[pygame.K_LEFT]:
             if x > 0:
-                x-=10
+                x-=20
                 SCREEN.blit(moveL[frame], (x, y))
             else : SCREEN.blit(Personaje[frame], (x,y))
         #elif keys[pygame.K_UP]:
@@ -1213,7 +1212,7 @@ def QuintoNivel(colour, racha1,racha2,racha3):
                     Correcto = 0
         if level == 3:
             if racha4 == True:
-                medallacuatro = pygame.image.load('assets/Med4.png')
+                medallacuatro = pygame.image.load('assets/Med4.png').convert_alpha()
                 SCREEN.blit(medallacuatro, (0,0))
                 for i in range(12, 16):
                     speed = 3
@@ -1269,13 +1268,13 @@ def QuintoNivel(colour, racha1,racha2,racha3):
 ##########################################################
 def SextoNivel(colour,racha1,racha2,racha3,racha4):
     music_paused = False
-    LawBG= pygame.image.load('assets/LawBG.png')
-    TresopcionesLaw = pygame.image.load('assets/LawLB.png')
-    medallauno = pygame.image.load('assets/Med1.png')
-    medallados = pygame.image.load('assets/Med2.png')
-    medallatres = pygame.image.load('assets/Med3.png')
-    medallacuatro = pygame.image.load('assets/Med4.png')
-    BarraProg = pygame.image.load('assets/Prog6.png')
+    LawBG= pygame.image.load('assets/LawBG.png').convert_alpha()
+    TresopcionesLaw = pygame.image.load('assets/LawLB.png').convert_alpha()
+    medallauno = pygame.image.load('assets/Med1.png').convert_alpha()
+    medallados = pygame.image.load('assets/Med2.png').convert_alpha()
+    medallatres = pygame.image.load('assets/Med3.png').convert_alpha()
+    medallacuatro = pygame.image.load('assets/Med4.png').convert_alpha()
+    BarraProg = pygame.image.load('assets/Prog6.png').convert_alpha()
     if colour == "Blue":
         Personaje = Azul_idle
         moveR = Azul_walking_right
@@ -1374,12 +1373,12 @@ def SextoNivel(colour,racha1,racha2,racha3,racha4):
         keys = pygame.key.get_pressed()
         if keys[pygame.K_RIGHT]:
             if x < 1100:
-                x+= 10
+                x+= 20
                 SCREEN.blit(moveR[frame], (x, y))
             else :SCREEN.blit(Personaje[frame], (x,y))
         elif keys[pygame.K_LEFT]:
             if x > 0:
-                x-=10
+                x-=20
                 SCREEN.blit(moveL[frame], (x, y))
             else : SCREEN.blit(Personaje[frame], (x,y))
         #elif keys[pygame.K_UP]:
@@ -1483,7 +1482,7 @@ def SextoNivel(colour,racha1,racha2,racha3,racha4):
                     SCREEN.blit(snip, (38, 560 ))
                     Correcto = 0
         if level == 4:
-            medallacuatro = pygame.image.load('assets/Medallas4.png')
+            medallacuatro = pygame.image.load('assets/Medallas4.png').convert_alpha()
             SCREEN.blit(medallacuatro, (0,0))
             for i in range(12, 16):
                 speed = 3
@@ -1576,7 +1575,7 @@ def play():
         pygame.display.update()
     
 def options():
-    QR=pygame.image.load('assets/Resources.png')
+    QR=pygame.image.load('assets/Resources.png').convert_alpha()
     while True:
         OPTIONS_MOUSE_POS = pygame.mouse.get_pos()
 
